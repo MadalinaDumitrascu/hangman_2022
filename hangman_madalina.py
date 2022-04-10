@@ -2,6 +2,7 @@ import sys
 import random
 from ascii import hangman
 
+
 def display_start_menu():
     print("Welcome to the Hangman!!!")
     difficulty = input("Please choose level of difficulty. Easy, Hard or Quit:  ").lower()
@@ -9,6 +10,7 @@ def display_start_menu():
         print("Buh-Bye!") 
         sys.exit() 
     return difficulty
+
 
 def get_level():
     difficulty = display_start_menu()
@@ -19,10 +21,12 @@ def get_level():
     else: 
         difficulty = display_start_menu()   
      
+
 def read_words(file):
     lines = open(file, 'r').readlines()
     word_list = [line.split(" | ")[1].replace("\n", "") for line in lines]
     return word_list
+
 
 def get_words_level_difficulty():
     file = 'countries-and-capitals.txt'
@@ -36,6 +40,7 @@ def get_words_level_difficulty():
             w = easy.append(w) 
     return easy, hard
 
+
 def get_word(difficulty):
     easy, hard = get_words_level_difficulty()
     if difficulty == 'easy':
@@ -44,6 +49,7 @@ def get_word(difficulty):
         word = random.choice(hard)
     return word                   
     
+
 def set_lives(difficulty):
     if difficulty == 'easy':
         lives = 7
@@ -63,8 +69,9 @@ def display_ascii_art(lives):
 
 
 def is_won(word):
-    return not "_" in word 
+    return "_" not in word 
     
+
 def display_ask_for_letter():
     letter = input(" Please provide a letter: ").lower()
     if letter == 'quit':
@@ -92,14 +99,7 @@ def search_replace_letter(letter, word, guess):
     return "".join(guesslist)             
 
 
-def main(): 
-    difficulty = get_level()
-    lives = set_lives(difficulty)
-    word = get_word(difficulty)
-    word_list = word.split(" ") # pt numele formate din mai multe cuvinte, scapi de spatiul liber si sa nu se numere la _
-    guess = " ".join([len(x) * "_" for x in word_list])
-    tried_letters = set()
-  
+def is_game_on(word, lives, guess, tried_letters):
     while True:
         display_word(guess, tried_letters)
         letter = get_letter()
@@ -108,6 +108,7 @@ def main():
             guess = search_replace_letter(letter, word, guess)
             if is_won(guess):
                 print("You won! Buh-bye")
+                print(f"the word was: {word}")
                 break
         else:
             lives = lives - 1
@@ -117,6 +118,16 @@ def main():
                 print(f"the word was: {word}") 
                 break   
 
+
+def main(): 
+    difficulty = get_level()
+    lives = set_lives(difficulty)
+    word = get_word(difficulty)
+    word_list = word.split(" ")
+    guess = " ".join([len(x) * "_" for x in word_list])
+    tried_letters = set()
+    is_game_on(word, lives, guess, tried_letters)
+    
 
 if __name__ == '__main__':
     main()
