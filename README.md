@@ -12,6 +12,8 @@
 Hangman game
 Implement a basic hangman game flow. You can use any (even a constant) word to guess, focus on the guessing logic and the termination of the game.
 
+<img src="https://i.ibb.co/PxcnJZL/Screenshot-2023-03-20-124951.png" alt="Screenshot-2023-03-20-124951" border="0" />
+
 The game requires the user to guess all the letters belonging to a word.
 
 The initial game state is displayed as _ _ _ _ _ _ _ _ (one underscore for each letter in word).
@@ -27,6 +29,8 @@ When a guess is repeated (regardless of its occurrences), the player is notified
 When a guess is wrong (either a new or a repeated letter), the previous wrong letters are shown to the user.
 
 The player wins when all letters in word are revealed.
+
+<img src="https://i.ibb.co/wrnhvzb/Screenshot-2023-03-20-125138.png" alt="Screenshot-2023-03-20-125138" border="0" />
 
 The player loses when the number of wrong guesses is higher than the initial value of lives parameter (not counting repeated guesses).
 
